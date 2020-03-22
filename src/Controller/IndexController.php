@@ -32,7 +32,7 @@ class IndexController extends AbstractController
 
         $client = HttpClient::create();
         $response = $client->request('GET', $uri, [
-          'auth_basic' => [getenv('MDB_USERNAME'), getenv('MDB_PASSWORD')],
+          'auth_basic' => [$this->getParameter('app.mdb.username'), $this->getParameter('app.mdb.password')],
           'query' => $qs
         ]);
 
