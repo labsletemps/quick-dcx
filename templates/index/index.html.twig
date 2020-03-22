@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% macro card(story, type = "secondary") %}
+    <div class="card text-white bg-{{ type }} mb-3" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{ story.title }}</h5>
+            <p class="card-text">Créé par <em>{{ story.creator }}</em></p>
+        </div>
+    </div>
+{% endmacro %}
+
+{% block title %}Quick MDB{% endblock %}
+
+{% block body %}
+<div class="col">
+    <h2>Brouillon</h2>
+    {% if stories['taskstatus-assigned'] is defined %}
+    {% for story in stories['taskstatus-assigned'] %}
+    {{ _self.card(story) }}
+    {% endfor %}
+    {% endif %}
+</div>
+<div class="col">
+    <h2>A disposition</h2>
+    {% if stories['taskstatus-adisposition'] is defined %}
+    {% for story in stories['taskstatus-adisposition'] %}
+    {{ _self.card(story, 'warning') }}
+    {% endfor %}
+    {% endif %}
+</div>
+<div class="col">
+    <h2>Publié</h2>
+    {% if stories['taskstatus-published'] is defined %}
+    {% for story in stories['taskstatus-published'] %}
+    {{ _self.card(story, 'success') }}
+    {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}
